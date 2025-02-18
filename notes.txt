@@ -1,0 +1,7 @@
+challenges
+connecting to db migration
+permission error write storage
+
+References:
+https://laravel.com/docs/11.x/eloquent-resources#resource-collections
+https://laravel.com/docs/11.x/notifications#formatting-mail-messages
