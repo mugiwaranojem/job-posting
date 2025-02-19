@@ -18,6 +18,8 @@ class JobResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
+            'contact_email' => $this->contact_email,
+            'status' => $this->status,
             'created_at' => $this->created_at,
         ];
     }

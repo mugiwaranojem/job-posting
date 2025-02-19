@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MailController;
+use App\Models\Job;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +16,18 @@ use App\Http\Controllers\MailController;
 |
 */
 
-Route::post('login', [AuthController::class, 'login']);
-Route::post('register', [AuthController::class, 'register']);
-Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
+Route::post('login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('register', [AuthController::class, 'register'])->name('auth.register');
+Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanctum')->name('auth.logout');
 
 Route::post('testmail', [MailController::class, 'testMail']);
+
+Route::get('/jobs/{job}/approve', function (Job $job) {
+    $job->update(['status' => 'approved']);
+    return redirect('/dashboard')->with('success', 'Job approved successfully!');
+})->name('jobs.approve');
+
+Route::get('/jobs/{job}/spam', function (Job $job) {
+    $job->update(['status' => 'spam']);
+    return redirect('/dashboard')->with('error', 'Job marked as spam!');
+})->name('jobs.spam');

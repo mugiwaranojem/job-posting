@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\JobSeekerController;
+use App\Http\Controllers\EmployerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,3 +25,5 @@ Route::get('/version', function () {
 });
 
 Route::get('/jobs', [JobSeekerController::class, 'allJobPosts']);
+
+Route::post('/jobs', [EmployerController::class, 'postJob']);

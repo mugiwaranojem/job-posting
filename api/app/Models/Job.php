@@ -15,5 +15,7 @@ class Job extends Model
         'source',
         'source_id',
         'expiry_date',
+        'status',
+        'contact_email'
     ];
 }
