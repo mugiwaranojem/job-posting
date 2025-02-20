@@ -40,6 +40,7 @@ class NewJobPosted extends Notification implements ShouldQueue
             ->subject('New Job Submission for Approval')
             ->line('A new job has been submitted for approval.')
             ->line('Title: ' . $this->job->title)
+            ->line('From: ' . $this->job->contact_email)
             ->line('Description: ')
             ->line($this->job->description)
             ->action('Approve Job', url('/jobs/' . $this->job->id . '/approve'))

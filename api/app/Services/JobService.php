@@ -40,12 +40,11 @@ class JobService
             $xml = new SimpleXMLElement($response->body());
             $externalJobs = [];
 
-
             foreach ($xml as $job) {
                 $descriptions = '';
                 $descArr = $job->jobDescriptions->jobDescription ?? [];
                 foreach($descArr as $jd) {
-                    $descriptions = '<h3>'.(string) $jd->name.'<h3>';
+                    $descriptions = '<p><b>'.(string) $jd->name.'</b></p>';
                     $descriptions .= '<p>'. (string) $jd->value.'</p>';
                 }
 
@@ -66,5 +65,10 @@ class JobService
             Log::error("Error fetching external jobs: " . $e->getMessage());
             return [];
         }
+    }
+
+    public function getJobDetails(int $id)
+    {
+        return Job::find($id);
     }
 }

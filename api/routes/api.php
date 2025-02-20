@@ -24,6 +24,8 @@ Route::get('/version', function () {
     return app()->version();
 });
 
+Route::get('/jobs/{id}', [JobSeekerController::class, 'show']);
 Route::get('/jobs', [JobSeekerController::class, 'allJobPosts']);
+
 
 Route::post('/jobs', [EmployerController::class, 'postJob']);
