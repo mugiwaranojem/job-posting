@@ -7,3 +7,4 @@ https://laravel.com/docs/11.x/eloquent-resources#resource-collections
 https://laravel.com/docs/11.x/notifications#formatting-mail-messages
 https://vuejs.org/guide/quick-start.html
 https://getbootstrap.com/docs/5.3/getting-started
+https://www.tiny.cloud/docs/tinymce/5/vue/

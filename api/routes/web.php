@@ -23,11 +23,14 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanct
 Route::post('testmail', [MailController::class, 'testMail']);
 
 Route::get('/jobs/{job}/approve', function (Job $job) {
-    $job->update(['status' => 'approved']);
-    return redirect('/dashboard')->with('success', 'Job approved successfully!');
+    $job->update(['status' => 'APPROVED']);
+    
+    // TODO: update hard coded redirect url
+    return redirect('http://localhost:5173')->with('success', 'Job approved successfully!');
 })->name('jobs.approve');
 
 Route::get('/jobs/{job}/spam', function (Job $job) {
-    $job->update(['status' => 'spam']);
-    return redirect('/dashboard')->with('error', 'Job marked as spam!');
+    $job->update(['status' => 'SPAM']);
+    // TODO: update hard coded redirect url
+    return redirect('http://localhost:5173')->with('success', 'Job marked as spam successfully!');
 })->name('jobs.spam');

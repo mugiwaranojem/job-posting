@@ -14,14 +14,18 @@ interface Job {
 }
 
 const jobs = ref<Job[]>([]);
+const loading = ref<boolean>(false);
 
 // Fetch jobs
 const fetchJobs = async () => {
+  loading.value = true;
   try {
     const response = await axios.get("http://localhost:8000/api/jobs");
     jobs.value = response.data?.data;
+    loading.value = false;
   } catch (error) {
     console.error("Error fetching jobs:", error);
+    loading.value = false;
   }
 };
 
@@ -37,15 +41,17 @@ onMounted(() => {
 </script>
 
 <template>
-  <JobListItem v-for="job in jobs">
-    <template #icon>
-      <ToolingIcon />
-    </template>
-    <template #heading>{{ job.title }}</template>
+  <div  v-if="loading" class="spinner-border m-5" role="status"></div>
+  <div v-else>
+    <JobListItem  v-for="job in jobs">
+      <template #icon>
+        <ToolingIcon />
+      </template>
+      <template #heading>{{ job.title }}</template>
 
-    <div v-html="truncatedText(job.description)"></div>
-    <br />
-    <RouterLink :to="`/job/${job.id}`">View Job</RouterLink>
-
-  </JobListItem>
+      <div v-html="truncatedText(job.description)"></div>
+      <br />
+      <RouterLink :to="`/job/${job.id}`">View Job</RouterLink>
+    </JobListItem>
+  </div>
 </template>
