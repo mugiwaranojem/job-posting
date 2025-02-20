@@ -5,7 +5,7 @@ import PostJob from '../components/PostJob.vue'
 
 <template>
   <div class="wrapper">
-    <PostJob  />
+    <PostJob />
   </div>
   <main id="main-list">
     <JobList />

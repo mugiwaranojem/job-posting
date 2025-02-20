@@ -1,14 +1,14 @@
-import { ref } from "vue";
+import { ref } from 'vue'
 
-const events = ref(new Map());
+const events = ref(new Map())
 
 export const eventBus = {
   on(event: string, callback: Function) {
-    events.value.set(event, callback);
+    events.value.set(event, callback)
   },
   emit(event: string, ...args: any[]) {
     if (events.value.has(event)) {
-      events.value.get(event)(...args);
+      events.value.get(event)(...args)
     }
   },
-};
+}
