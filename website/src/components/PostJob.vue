@@ -23,19 +23,29 @@
           <!-- Job Description -->
           <div class="mb-3">
             <label for="job-description" class="form-label">Job Description:</label>
-            <textarea
+            <!-- <textarea
               id="job-description"
               class="form-control"
               v-model="job.description"
               :class="{ 'is-invalid': job.description === '' && submitted }"
               rows="4"
               placeholder="Enter job description"
-            ></textarea>
+            ></textarea> -->
+            <Editor
+              v-model="job.description"
+              apiKey="zc0vndqw9w4mpfomizdpc3thtgu9gpper2bx0bysy041n42h"
+              :init="{
+                height: 400,
+                menubar: false,
+                plugins: 'lists link image code',
+                toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code',
+              }"
+            />
             <div class="invalid-feedback">Description is required.</div>
           </div>
   
           <!-- Contact Email -->
-          <div class="mb-3">
+          <div class="mb-3 mt-3">
             <label for="job-email" class="form-label">Contact Email:</label>
             <input
               type="email"
@@ -64,6 +74,7 @@
   import { ref } from "vue";
   import axios from "axios";
   import { eventBus } from "@/events/eventBus";
+  import Editor from "@tinymce/tinymce-vue";
 
   const job = ref({
     title: "",
@@ -73,6 +84,7 @@
   const loading = ref(false);
   const submitted = ref(false);
   const successMessage = ref('');
+  const content = ref('');
   
   const validateEmail = (email: string) => {
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
