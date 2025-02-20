@@ -1,0 +1,141 @@
+{
+	"info": {
+		"_postman_id": "1495e196-cbdf-41c9-bb89-738a202f11ab",
+		"name": "Job Post Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "33700905"
+	},
+	"item": [
+		{
+			"name": "CGet Jobs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/jobs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"jobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Register",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Moderator Admin\",\r\n    \"email\": \"moderatoradmin@mailinator.com\",\r\n    \"password\": \"123456\",\r\n    \"password_confirmation\": \"123456\",\r\n    \"role\": \"moderator\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Job",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Full Stack Developer\",\r\n    \"description\": \"Requirements Extensive MVC experience, preferably with Laravel.\",\r\n    \"contact_email\": \"employer1120@mailinator.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/jobs",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"jobs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET Job",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/jobs/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"jobs",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST Sync Jobs",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8000/api/jobs/sync",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"jobs",
+						"sync"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
