@@ -16,11 +16,13 @@ class InsertModeratorRoleAndUser extends Migration
             'updated_at' => now()
         ]);
 
+        $moderatorEmail = env('MODERATOR_EMAIL', 'jemsbond1109@mailinator.com');
+
         // Insert a Moderator Admin user
         DB::table('users')->insert([
             'id' => 1,
             'name' => 'Moderator Admin',
-            'email' => 'jemsbond1109@mailinator.com',
+            'email' => $moderatorEmail,
             'email_verified_at' => null,
             'password' => Hash::make('123456'),
             'remember_token' => null,

@@ -31,11 +31,11 @@ improvements would be to add a Repository layer were all data manipulation will 
 ### Setup the APP
 1. clone repo
 ```
-git@github.com:mugiwaranojem/job-posting.git
-cd job-posting
-docker-compose build
+git clone https://github.com/mugiwaranojem/job-posting.git
+docker-compose up
 ```
 2. Setup BE
+In separate terminal  
 ```
 cd api
 composer install
@@ -50,9 +50,11 @@ DB_DATABASE=api_db
 DB_USERNAME=root
 DB_PASSWORD=root
 
-# to root folder, Spin up the containers
-cd job-posting
-docker-compose up
+# Update default moderator email
+To test approval of job post update env param
+```
+MODERATOR_EMAIL=YOUR_EMAIL
+```
 
 # in new window terminal, setup laravel app
 docker exec -it job_posting_web php artisan key:generate
@@ -60,7 +62,7 @@ docker exec -it job_posting_web php artisan migrate
 ```
 2. Setup FE
 ```
-cd frontend
+cd website
 npm install
 npm run dev
 ```
@@ -73,7 +75,6 @@ Open in broswer http://localhost:5173/ or replace what ever port is being dispal
 # Import to PostMan
 ./api/api.postman_collection.json
 ```
-
 
 ### References
 - https://laravel.com/docs/11.x/eloquent-resources#resource-collections  

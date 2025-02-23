@@ -102,7 +102,7 @@ const postJob = async () => {
     })
     job.value = { title: '', description: '', email: '' }
     loading.value = false
-    successMessage.value = 'Job Posted!'
+    successMessage.value = 'Job Submitted and waiting for approval!'
     submitted.value = false
     eventBus.emit('fetch-jobs')
   } catch (error) {
