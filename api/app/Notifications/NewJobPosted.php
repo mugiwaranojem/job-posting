@@ -51,7 +51,7 @@ class NewJobPosted extends Notification implements ShouldQueue
             ->line('Title: ' . $this->job->title)
             ->line('From: ' . $this->job->contact_email)
             ->line('Description: ')
-            ->line($this->job->description)
+            ->line(new HtmlString($this->job->description))
             ->action('Approve Job', url('/jobs/' . $approval->token . '/approve'))
             ->line('If this job is spam, click the link below:')
             ->line(new HtmlString('<a href="'.url('/jobs/' . $spam->token . '/spam').'" style="display:block; margin: 0 auto; width: 180px;">Mark as Spam</a>'))
