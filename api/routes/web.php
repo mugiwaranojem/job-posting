@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MailController;
-use App\Models\Job;
+use App\Http\Controllers\JobModeratorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,15 +22,6 @@ Route::post('logout', [AuthController::class, 'logout'])->middleware('auth:sanct
 
 Route::post('testmail', [MailController::class, 'testMail']);
 
-Route::get('/jobs/{job}/approve', function (Job $job) {
-    $job->update(['status' => 'APPROVED']);
-    
-    // TODO: update hard coded redirect url
-    return redirect('http://localhost:5173')->with('success', 'Job approved successfully!');
-})->name('jobs.approve');
+Route::get('/jobs/{token}/approve', [JobModeratorController::class, 'approveJobPost'])->name('jobs.approve');
+Route::get('/jobs/{token}/spam', [JobModeratorController::class, 'markSpamJobPost'])->name('jobs.spam');
 
-Route::get('/jobs/{job}/spam', function (Job $job) {
-    $job->update(['status' => 'SPAM']);
-    // TODO: update hard coded redirect url
-    return redirect('http://localhost:5173')->with('success', 'Job marked as spam successfully!');
-})->name('jobs.spam');

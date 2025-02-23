@@ -2,6 +2,9 @@
 
 namespace App\Notifications;
 
+use App\Services\JobSpamUrlService;
+use App\Services\JobApprovalUrlService;
+use App\Models\UrlVerification;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -36,6 +39,12 @@ class NewJobPosted extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
+        $approval = UrlVerification::where('source_id', $this->job->id)
+            ->where('type',  JobApprovalUrlService::URL_TYPE)->first();
+
+        $spam = UrlVerification::where('source_id', $this->job->id)
+            ->where('type',  JobSpamUrlService::URL_TYPE)->first();
+
         return (new MailMessage)
             ->subject('New Job Submission for Approval')
             ->line('A new job has been submitted for approval.')
@@ -43,9 +52,9 @@ class NewJobPosted extends Notification implements ShouldQueue
             ->line('From: ' . $this->job->contact_email)
             ->line('Description: ')
             ->line($this->job->description)
-            ->action('Approve Job', url('/jobs/' . $this->job->id . '/approve'))
+            ->action('Approve Job', url('/jobs/' . $approval->token . '/approve'))
             ->line('If this job is spam, click the link below:')
-            ->line(new HtmlString('<a href="'.url('/jobs/' . $this->job->id . '/spam').'" style="display:block; margin: 0 auto; width: 180px;">Mark as Spam</a>'))
+            ->line(new HtmlString('<a href="'.url('/jobs/' . $spam->token . '/spam').'" style="display:block; margin: 0 auto; width: 180px;">Mark as Spam</a>'))
             ->line('Thank you for managing job submissions!');
     }
 }

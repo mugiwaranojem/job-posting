@@ -8,21 +8,30 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use App\Models\User;
 use App\Notifications\NewJobPosted;
+use App\Services\JobApprovalUrlService;
+use App\Services\JobSpamUrlService;
 
 class JobModeratorService
 {
+    public function __construct(
+        private readonly JobApprovalUrlService $jobApprovalUrlService,
+        private readonly JobSpamUrlService $jobSpamUrlService
+    ) { }
+
     public const EXTERNAL_API_JOB = 'https://mrge-group-gmbh.jobs.personio.de/xml';
 
-    public function approveJob(int $jobId): void
+    public function approveJob(int $jobId): Job
     {
         $job = Job::find($jobId);
         $job->update(['status' => 'APPROVED']);
+        return $job;
     }
 
-    public function markAsSpam(int $jobId)
+    public function markAsSpam(int $jobId): Job
     {
         $job = Job::find($jobId);
         $job->update(['status' => 'SPAM']);
+        return $job;
     }
 
     public function notifyModerators(Job $job)
@@ -30,6 +39,9 @@ class JobModeratorService
         $moderators = User::whereHas('role', function ($query) {
             $query->where('name', 'moderator');
         })->get();
+
+        $this->jobApprovalUrlService->createUrlVerification($job->id);
+        $this->jobSpamUrlService->createUrlVerification($job->id);
 
         foreach ($moderators as $moderator) {
             $moderator->notifyNow(new NewJobPosted($job));
