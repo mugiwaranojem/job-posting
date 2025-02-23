@@ -59,6 +59,7 @@ MODERATOR_EMAIL=YOUR_EMAIL
 # in new window terminal, setup laravel app
 docker exec -it job_posting_web php artisan key:generate
 docker exec -it job_posting_web php artisan migrate
+docker exec -it job_posting_web php artisan jobs:sync
 ```
 2. Setup FE
 ```
