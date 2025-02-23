@@ -6,6 +6,10 @@ services:
     container_name: "${APP_NAME}_web"
     ports:
       - "9000:9000"
+    environment:
+      XDEBUG_MODE: debug
+      XDEBUG_CLIENT_HOST: host.docker.internal
+      XDEBUG_CLIENT_PORT: 9003
     volumes:
       - ./api:/var/www
     networks:
